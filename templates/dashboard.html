@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static\assets\logo3.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="static\css\dash.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <aside>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="static\images\logo3.png">
+                    <a href="dash.html"><h2>Health<span class="danger">Guard</span></h2></a>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="/dashboard">
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="/heart">
+                    <span class="material-symbols-outlined">
+                        cardiology
+                    </span>
+                    <h3>Heart</h3>
+                </a>
+                <a href="/diabetes">
+                    <span class="material-symbols-outlined">
+                        glucose
+                    </span>
+                    <h3>Diabetes</h3>
+                </a>
+                <a href="/contact">
+                    <span class="material-symbols-outlined">
+                        phone_in_talk
+                    </span>
+                    <h3>Contact us</h3>
+                </a>
+                    <a href="/profile">
+                        <span class="material-symbols-outlined">
+                            account_circle
+                        </span>
+                        <h3>My Profile</h3>
+                </a>
+                <a href="login-signup.html">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+
+        <main>
+            <h1>Dashboard</h1>
+            <h3 class="info1">Learn about diseases</h3>
+            <div class="analyse">
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h2>Learn about Heart diseases</h2>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/h413NHcx7eo?si=B2qYvwu3AqKlXIkN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="analyse">
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h2>Learn about Diabetes</h2>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/wZAjVQWbMlE?si=RG-UXk82a_nz_0Rw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+                <div class="dark-mode">
+                    <span class="material-icons-sharp active">
+                        light_mode
+                    </span>
+                    <span class="material-icons-sharp">
+                        dark_mode
+                    </span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>{{ username }}</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static\js\dash.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static\assets\logo3.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="static\css\dash.css">
+    <link rel="stylesheet" href="static\css\diabetes.css">
+    <title>Diabetes Prediction</title>
+</head>
+
+<body>
+    <div class="container">
+        <aside>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="static\assets\logo3.png">
+                    <a href="dash.html"><h2>Health<span class="danger">Guard</span></h2></a>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="dash.html">
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="heart.html">
+                    <span class="material-symbols-outlined">
+                        cardiology
+                    </span>
+                    <h3>Heart</h3>
+                </a>
+                <a href="diabetes.html">
+                    <span class="material-symbols-outlined">
+                        glucose
+                    </span>
+                    <h3>Diabetes</h3>
+                </a>
+                <a href="contact.html">
+                    <span class="material-symbols-outlined">
+                        phone_in_talk
+                    </span>
+                    <h3>Contact us</h3>
+                </a>
+                    <a href="profile.html">
+                        <span class="material-symbols-outlined">
+                            account_circle
+                        </span>
+                        <h3>My Profile</h3>
+                </a>
+                    <a href="/logout">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </a>
+            </div>
+        </aside>
+        <main>
+            <h1>Diabetes Prediction</h1>
+            <h3 class="info">Enter the following details to detect the risk</h3>
+            <form id="expenditureForm" action="/expenditure" method="post">
+                <label for="date">Age: </label>
+                <input type="text" id="date" name="age" required>
+                
+                <label for="date">Number of Pregnancies: </label>
+                <input type="text" id="date" name="date" required>
+                
+                <label for="description">Glucose Level(mg/dL): </label>
+                <input type="text" id="description" name="description" required>
+                
+                <label for="amount">Blood Pressure(mm Hg): </label>
+                <input type="number" id="amount" name="amount" min="0" required>
+                
+                <label for="payment_method">Skin Thickness(mm): </label>
+                <input type="text" id="payment_method" name="payment_method" required>
+                
+                <label for="supplier">Insulin Level(mm U/ml): </label>
+                <input type="text" id="supplier" name="supplier" required>
+                
+                <label for="invoice_number">Body Mass Index(BMI): </label>
+                <input type="text" id="invoice_number" name="invoice_number">
+
+                <label for="invoice_number">Diabetes Pedigree Function: </label>
+                <input type="text" id="invoice_number" name="invoice_number">
+                
+                <input type="submit" value="Submit">
+            </form>
+        </main>
+        
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+                <div class="dark-mode">
+                    <span class="material-icons-sharp active">
+                        light_mode
+                    </span>
+                    <span class="material-icons-sharp">
+                        dark_mode
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static\js\dash.js"></script>
+</body>
+<script src="static\js\diabetes.js"></script> 
+</html>
