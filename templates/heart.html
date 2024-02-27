@@ -80,7 +80,12 @@
                 </select>
                 
                 <label for="description">Chest Pain Type: </label>
-                <input type="text" id="description" name="cp" required>
+                <select id="category" name="cp" required>
+                    <option value="Typical Angina">Typical Angina</option>
+                    <option value="Atypical Angina">Atypical Angina</option>
+                    <option value="Non-Anginal Pain">Non-Anginal Pain</option>
+                    <option value="Asymptomatic">Asymptomatic</option>
+                </select>
                 
                 <label for="amount">Resting Blood Pressure(mm Hg): </label>
                 <input type="number" id="amount" name="trestbps" min="0" required>
@@ -92,29 +97,51 @@
                 <input type="text" id="supplier" name="fbs" required>
                 
                 <label for="invoice_number">Resting Electrocardiographic Results: </label>
-                <input type="text" id="invoice_number" name="restecg">
+                <select id="category" name="restecg" required>
+                    <option value="Normal">Normal</option>
+                    <option value="ST-T abnormality">ST-T Abnormality</option>
+                </select>
 
                 <label for="invoice_number">Maximum Heart Rate Achieved: </label>
                 <input type="text" id="invoice_number" name="thalach">
 
                 <label for="invoice_number">Exercise Induced Angina: </label>
-                <input type="text" id="invoice_number" name="exang">
+                <select id="category" name="exang" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
 
                 <label for="invoice_number">ST Depression Induced by Exercise:</label>
                 <input type="text" id="invoice_number" name="oldpeak">
 
                 <label for="invoice_number">ST Depression during Peak Exercise</label>
-                <input type="text" id="invoice_number" name="slope">
+                <select id="category" name="slope" required>
+                    <option value="0">Up Sloping</option>
+                    <option value="1">Flat</option>
+                    <option value="2">Down Sloping</option>
+        
+                </select>
 
                 <label for="invoice_number">Number of Major Vessels</label>
-                <input type="text" id="invoice_number" name="ca">
+                <select id="category" name="ca" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
 
                 <label for="invoice_number">Thalassemia</label>
-                <input type="text" id="invoice_number" name="thal">
+                <select id="category" name="thal" required>
+                    <option value="No Disorder">No Disorder</option>
+                    <option value="Normal Blood Flow">Normal blood flow</option>
+                    <option value="Fixed Defect">Fixed defect</option>
+                    <option value="Reversible Defect">Reversible defect</option>
+                </select>
                 
                 <input type="submit" value="Submit">
                <h1> {{predict}}</h1>
             </form>
+
 
         </main>
         <div class="right-section">

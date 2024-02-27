@@ -156,10 +156,49 @@ def calculate():
     feature_names = ['age','sex','cp','trestbps','chol','fbs','restecg','thalach','exang','oldpeak','slope','ca','thal']
     features = {name: request.form.get(name) for name in feature_names}
     if(features['sex']=='Male'):
-        features['sex'] = '1'
+        features['sex'] = '1'                           #SEX
     elif(features['sex'] == 'Female'):
         features['sex'] = '0'
         
+    if(features['cp']=="Typical Angina"):
+        features['cp'] = '0'
+    elif(features['cp'] == "Atypical Angina"):
+        features['cp'] = '1'                              #CP
+    elif(features['cp'] == "Non-Anginal Pain"):
+        features['cp'] = '2'
+    elif(features['cp'] == "Asymptomatic"):
+        features['cp'] = '3'
+        
+       
+    if(features['restecg']=="Normal"):                      #RESTECG
+        features['restecg'] = '0'
+    elif(features['restecg']=="ST-T abnormality"):
+        features['restecg'] = '1'
+    # elif(features['restecg']=="Probable or definite left ventricular hypertrophy "):
+    #     features['restecg'] = '2'
+    
+    
+    if(features['exang']=="No"):                      #EXANG
+        features['exang'] = '0'
+    elif(features['exang']=="Yes"):
+        features['exang'] = '1'
+        
+    if(features['slope']=="Up Sloping"):                      #SLOPE
+        features['slope'] = '0'
+    elif(features['slope']=="Flat"):
+        features['slope'] = '1'
+    elif(features['slope']=="Down Sloping"):
+        features['slope'] = '2'
+        
+    if(features['thal']=="No Disorder"):                      #THAL
+        features['thal'] = '0'
+    elif(features['thal']=="Normal Blood Flow"):
+        features['thal'] = '1'
+    elif(features['thal']=="Fixed Defect"):
+        features['thal'] = '2'
+    elif(features['thal']=="Reversible Defect"):
+        features['thal'] = '3'
+
         
     final = [np.array([float(features[name]) for name in feature_names])]
 
