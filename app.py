@@ -29,7 +29,7 @@ heart_model = pickle.load(open('model1.pkl', 'rb'))
 
 @app.route("/")
 def home():
-    return render_template("heart.html")
+    return render_template("index.html")
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -128,28 +128,101 @@ def heart_disease():
 
 @app.route('/predict', methods=['POST', 'GET'])
 def predict():
-    feature_names = ['pregnancies', 'glucose', 'blood-pressure', 'skin-thickness', 'insulin','bmi','diabetes-pedigree','age']
+    feature_names = ['pregnancies', 'glucose', 'blood-pressure', 'skin-thickness', 'insulin', 'bmi', 'diabetes-pedigree', 'age']
     features = {name: request.form.get(name) for name in feature_names}
-    
-    
+
     final = [np.array([float(value) if value is not None else 0.0 for value in features.values()])]
 
     prediction = model.predict(final)
     print(prediction)
 
     if prediction[0] == 0:
-        result = "The person is not diabetic"
+        result = "Probability of being diabetic is very less."
     else:
-        result = "The person is diabetic"
+        result = "You are at high risk of being diabetic."
 
-    
+    user_id = session['user'] if 'user' in session else 'Guest'
+    username = session.get('username', 'Guest')
+
+    # Retrieve old values from the database
+   
+
+    # Store new values in the database
     data = {
+        'user_id': user_id,
+        'username': username,
         'features': features,
         'prediction': result
     }
     db.child('diabetes_predictions').push(data)
 
-    return render_template('diabetes-form.html', pred=result)
+    
+    old_values = db.child('diabetes_predictions').order_by_child('user_id').equal_to(user_id).get()
+    print(old_values)
+    
+    # Compare old and new values and provide feedback
+    feedback, conclusion = compare_values(old_values, data)
+
+    return render_template('diabetes.html', pred=result, feedback=feedback, conclusion=conclusion)
+
+
+
+def compare_values(old_values, new_value):
+    old_features = []
+    old_predictions = []
+
+    # Extract old features and predictions from the retrieved data
+    for entry in old_values.each():
+        old_features.append(entry.val()['features'])
+        old_predictions.append(entry.val()['prediction'])
+
+    # Extract new features and prediction
+    new_features = new_value['features']
+    new_prediction = new_value['prediction']
+
+    # Compare specific features (e.g., glucose levels, age) and provide feedback
+    feedback = ""
+
+    # Example: Compare glucose levels
+    old_glucose = [float(entry['glucose']) for entry in old_features]
+    new_glucose = float(new_features['glucose'])
+
+    # Compare with the latest value
+    if new_glucose >= old_glucose[-1]:
+        feedback += "Your glucose levels have increased. "
+    else:
+        feedback += "Your glucose levels are stable. "
+
+    # Example: Compare age
+    old_age = [float(entry['age']) for entry in old_features]
+    new_age = float(new_features['age'])
+
+    # Compare with the latest value
+    if new_age >= old_age[-1]:
+        feedback += "Your age has increased. "
+    else:
+        feedback += "Your age is stable. "
+
+    # Add more comparisons based on your specific features
+
+    # Scoring system (adjust weights and thresholds as needed)
+    glucose_score = 1 if new_glucose >= old_glucose[-1] else -1
+    age_score = 1 if new_age >= old_age[-1] else -1
+
+    total_score = glucose_score + age_score  # Add more scores as needed
+
+    # Determine conclusion based on the total score
+    if total_score >= 2:
+        conclusion = "Your health is stable."
+    elif -1 <= total_score <= 1:
+        conclusion = "Your health is in a moderate state."
+    else:
+        conclusion = "Your health is in a critical condition."
+
+    return feedback, conclusion
+
+
+
 
 @app.route('/calculate', methods=["POST", "GET"])
 def calculate():
@@ -206,17 +279,23 @@ def calculate():
     print(prediction)
 
     if prediction[0] == 0:
-        result = "You have no heart disease"
+        result = "Probability of having heart disease is very less."
     else:
-        result = " You have heart disease"
+        result = " You are at high risk of havig heart disease."
+
+    user_id = session['user'] if 'user' in session else 'Guest'
+    username = session.get('username', 'Guest')
 
     data = {
+        'user_id': user_id,
+        'username': username,
         'features': features,
         'prediction': result
     }
     db.child('heart_disease_predictions').push(data)
 
     return render_template("heart.html", predict=result)
+
 
 @app.route("/contact")
 def contact():
