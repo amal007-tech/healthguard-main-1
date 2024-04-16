@@ -1,4 +1,5 @@
 from flask import Flask, request, url_for, redirect, render_template,session
+from flask import jsonify
 import pickle
 import numpy as np
 import pyrebase
@@ -94,6 +95,39 @@ def signin():
 
 
 
+def get_diet_recommendations(diet_recommendation):
+    if diet_recommendation == "You are at high risk of being diabetic.":
+        return """
+        <ul>
+            <li><strong>Focus on Whole Foods: Emphasize whole grains, fruits, vegetables, lean proteins, and healthy fats.</strong></li>
+            <li><strong>Limit Sugary and Processed Foods: Minimize intake of sugary beverages, sweets, and processed snacks.</strong></li>
+            <li><strong>Control Portions: Watch portion sizes to manage blood sugar levels and prevent overeating.</strong></li>
+            <li><strong>Stay Hydrated: Drink plenty of water throughout the day.</strong></li>
+            <li><strong>Consistent Meal Timing: Aim for regular meal times to help regulate blood sugar levels.</li>
+            <li><strong>Monitor Carbohydrate Intake: Be mindful of carbohydrate intake and choose complex carbs over simple ones.</strong></li>
+            <li><strong>Consult a Dietitian: Get personalized dietary advice from a registered dietitian for optimal diabetes management.</strong></li>
+           
+        """
+    elif diet_recommendation == " You are at high risk of having heart disease.":
+         return """
+        <ul>
+            <li><strong>Prioritize Fruits and Vegetables: Aim for a colorful variety of fruits and vegetables daily for essential vitamins, minerals, and antioxidants.</strong></li>
+            <li><strong>Choose Whole Grains: Opt for whole grains like oats, quinoa, and brown rice to boost fiber intake, supporting heart health and cholesterol levels.</strong></li>
+            <li><strong>Select Lean Proteins: Include lean protein sources such as poultry, fish, legumes, and tofu while limiting red meat and processed meats.</strong></li>
+            <li><strong>Reduce Unhealthy Fats: Minimize saturated and trans fats found in fried foods, fatty meats, and processed snacks. Opt for healthier fats like olive oil, avocado, and nuts.</strong></li>
+            <li><strong>Limit Sodium: Decrease intake of high-sodium foods like processed snacks and canned soups. Flavor meals with herbs and spices instead of salt.</strong></li>
+            <li><strong>Moderate Alcohol: If consumed, limit alcohol intake to moderate levels (1 drink per day for women, 2 for men) and choose lower-alcohol options.</strong></li>
+            <li><strong>Watch Portion Sizes: Be mindful of portion sizes to prevent overeating and maintain a healthy weight.</strong></li>
+            <li><strong>Stay Hydrated: Drink plenty of water throughout the day and limit sugary beverages.</strong></li>
+            <li><strong>Minimize Added Sugars: Limit foods and drinks with added sugars like soda, sweets, and sugary desserts.</strong></li>
+            <li><strong>Follow Heart-Healthy Eating Patterns: Consider dietary patterns like the Mediterranean or DASH diets, known for their heart-protective benefits.</strong></li>
+        </ul>
+        """
+    else:
+        return "No specific diet recommendations available."
+    
+    
+
 @app.route("/dashboard")
 def dashboard():
     if 'user' in session:
@@ -124,6 +158,12 @@ def diabetes():
 def heart_disease():
     return render_template("heart.html")
 
+@app.route('/diet-recommendations')
+def show_diet_recommendations():
+    prediction_result = request.args.get('prediction_result')
+    diet_recommendation = request.args.get('diet_recommendation')
+    return render_template('diet_recommendations.html', prediction_result=prediction_result, diet_recommendation=diet_recommendation)
+
 
 
 @app.route('/predict', methods=['POST', 'GET'])
@@ -140,6 +180,12 @@ def predict():
         result = "Probability of being diabetic is very less."
     else:
         result = "You are at high risk of being diabetic."
+        
+    
+
+    diet_recommendation = get_diet_recommendations(result)
+    return redirect(url_for('show_diet_recommendations', prediction_result=result, diet_recommendation=diet_recommendation))
+
 
     user_id = session['user'] if 'user' in session else 'Guest'
     username = session.get('username', 'Guest')
@@ -281,7 +327,10 @@ def calculate():
     if prediction[0] == 0:
         result = "Probability of having heart disease is very less."
     else:
-        result = " You are at high risk of havig heart disease."
+        result = " You are at high risk of having heart disease."
+        
+    diet_recommendation = get_diet_recommendations(result)
+    return redirect(url_for('show_diet_recommendations', prediction_result=result, diet_recommendation=diet_recommendation))
 
     user_id = session['user'] if 'user' in session else 'Guest'
     username = session.get('username', 'Guest')
